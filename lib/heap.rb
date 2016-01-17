@@ -7,23 +7,6 @@ class Heap
     heapify
   end
 
-  # convenience method to retrieve a value at a certain index
-  def item_at_index(i)
-    @heap_array[i]
-  end
-
-  # the size of the heap
-  def size
-    @heap_array.size
-  end
-
-  # sorts the heap and returns the sorted array
-  def heap_sort
-    new_arr = []
-    size.times { new_arr << remove }
-    @heap_array = new_arr
-  end
-
   def add(item)
     @heap_array << item
     sift_up(@heap_array.size-1)
@@ -36,13 +19,32 @@ class Heap
     return item
   end
 
+  # sorts the heap and returns the sorted array
+  def heap_sort
+    new_arr = []
+    size.times { new_arr << remove }
+    @heap_array = new_arr
+  end
+
+  # convenience method to retrieve a value at a certain index
+  def item_at_index(i)
+    @heap_array[i]
+  end
+
+  # the size of the heap
+  def size
+    @heap_array.size
+  end
+
   def inspect
+    # TODO: make this actually print it out in a visually tree-like way using print_heap
     string = ""
     @heap_array.each { |item| string << "#{item} " }
     string
   end
 
   def print_heap(i)
+    # TODO: make this actually print it out in a visually tree-like way
     return if i > @heap_array.size - 1
     print "#{@heap_array[i]} \n"
     print_heap(left(i))
@@ -70,15 +72,18 @@ class Heap
 
   def sift_down(current)
     loop do
+      # Get the priority child of the current node
       least_child = least_child(current)
 
-      if !!least_child && @heap_array[least_child] < @heap_array[current]
-        # swap if
+      # Swap if there is a priority child found
+      # and it is less than the value at the current index.
+      # Break if the least child is larger than the current node
+      # or if the current node has no children.
+      if  !!least_child &&
+          @heap_array[least_child] < @heap_array[current]
         swap(current,least_child)
         current = least_child
       else
-        # break if the least child is larger than the current node
-        # or if the current node has no children
         break
       end
     end
