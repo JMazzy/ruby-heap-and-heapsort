@@ -1,8 +1,8 @@
-require 'heap'
+require 'min_heap'
 
-describe "Heap" do
+describe "MinHeap" do
 
-  let(:heap) { Heap.new([10,9,8,7,6,5,4,3,2,1,0]) }
+  let(:heap) { MinHeap.new([10,9,8,7,6,5,4,3,2,1,0]) }
 
   describe "#initialize" do
     it "puts the lowest value in the root (index 0)" do

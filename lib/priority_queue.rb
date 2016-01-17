@@ -1,8 +1,9 @@
-require_relative 'heap'
+require_relative 'min_heap'
+require_relative 'max_heap'
 
 class PriorityQueue
-  def initialize
-    @heap = Heap.new
+  def initialize(max_heap=false)
+    @heap = max_heap ? MaxHeap.new : MinHeap.new
   end
 
   def enqueue(item,priority)
@@ -16,7 +17,11 @@ class PriorityQueue
   end
 
   def peek
-    @heap.item_at_index[0]
+    @heap.item_at_index(0).data
+  end
+
+  def size
+    @heap.size
   end
 end
 

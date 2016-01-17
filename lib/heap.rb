@@ -70,12 +70,16 @@ class Heap
     end
   end
 
+  def match_heap_property?(parent,child)
+    # A stub method which is implemented differently in subclasses
+  end
+
   def sift_up(current)
     # Parent of the current node
     parent = parent(current)
 
     # Loop back up, swapping up the heap until the node is in the proper place
-    while(current > 0 && @heap_array[current] < @heap_array[parent])
+    while(current > 0 && !match_heap_property?(parent,current))
       swap(current,parent)
       current = parent
       parent = parent(current)
@@ -85,31 +89,30 @@ class Heap
   def sift_down(current)
     loop do
       # Get the priority child of the current node
-      least_child = least_child(current)
+      priority_child = priority_child(current)
 
       # Swap if there is a priority child found
       # and it is less than the value at the current index.
       # Break if the least child is larger than the current node
       # or if the current node has no children.
-      if  !!least_child &&
-          @heap_array[least_child] < @heap_array[current]
-        swap(current,least_child)
-        current = least_child
+      if  !!priority_child && !match_heap_property?(current,priority_child)
+        swap(current,priority_child)
+        current = priority_child
       else
         break
       end
     end
   end
 
-  def least_child(current)
+  def priority_child(current)
     right = right(current)
     left = left(current)
     if both_children_present?(current)
-      least_child = @heap_array[left] < @heap_array[right] ? left : right
+      priority_child = match_heap_property?(left,right) ? left : right
     elsif left_child_present?(current)
-      least_child = left
+      priority_child = left
     elsif right_child_present?(current)
-      least_child = right
+      priority_child = right
     else
       nil
     end
@@ -145,6 +148,3 @@ class Heap
     @heap_array[j] = temp
   end
 end
-#
-# heap = Heap.new([4,5,3,8,6,12,0])
-# p heap
