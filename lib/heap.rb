@@ -8,14 +8,24 @@ class Heap
   end
 
   def add(item)
+    # Add the item to the end of the array
     @heap_array << item
-    sift_up(@heap_array.size-1)
+
+    # Do a sift-up operation to get it to its place
+    sift_up(size-1)
   end
 
   def remove
-    swap(0,@heap_array.size-1)
+    # Swap the first item with the last
+    swap(ROOT_INDEX,size-1)
+
+    # Pop off the last
     item = @heap_array.pop
-    sift_down(0)
+
+    # Do a sift-down operation to get it to its place
+    sift_down(ROOT_INDEX)
+
+    # Return the removed item
     return item
   end
 
@@ -54,19 +64,21 @@ class Heap
   private
 
   def heapify
-    # parent(@heap_array.length-1).downto(0).each do |i|
-    (@heap_array.size-1).downto(0).each do |i|
+    # Sift down all nodes above the last parent
+    (parent(size-1)).downto(ROOT_INDEX).each do |i|
       sift_down(i)
     end
   end
 
-  def sift_up(i)
-    parent = parent(i)
+  def sift_up(current)
+    # Parent of the current node
+    parent = parent(current)
 
-    while(i > 0 && @heap_array[i] < @heap_array[parent])
-      swap(i,parent)
-      i = parent
-      parent = parent(i)
+    # Loop back up, swapping up the heap until the node is in the proper place
+    while(current > 0 && @heap_array[current] < @heap_array[parent])
+      swap(current,parent)
+      current = parent
+      parent = parent(current)
     end
   end
 
