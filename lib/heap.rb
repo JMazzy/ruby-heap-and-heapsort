@@ -29,13 +29,6 @@ class Heap
     return item
   end
 
-  # sorts the heap and returns the sorted array
-  def heap_sort
-    new_arr = []
-    size.times { new_arr << remove }
-    @heap_array = new_arr
-  end
-
   # convenience method to retrieve a value at a certain index
   def item_at_index(i)
     @heap_array[i]
@@ -65,7 +58,7 @@ class Heap
 
   def heapify
     # Sift down all nodes above the last parent
-    (parent(size-1)).downto(ROOT_INDEX).each do |i|
+    (size-1).downto(ROOT_INDEX).each do |i|
       sift_down(i)
     end
   end

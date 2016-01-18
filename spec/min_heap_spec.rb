@@ -38,10 +38,4 @@ describe "MinHeap" do
       expect(heap.item_at_index(0)).to eq(3)
     end
   end
-
-  describe "#heapsort" do
-    it "should return the array sorted" do
-      expect(heap.heap_sort).to eq([0,1,2,3,4,5,6,7,8,9,10])
-    end
-  end
 end

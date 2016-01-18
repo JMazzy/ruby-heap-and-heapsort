@@ -1,11 +1,18 @@
-require_relative 'heap'
+require_relative 'heapsortable'
 
 class Array
-  def heap_sort
-    Heap.new(self.dup).heap_sort
+  include Heapsortable
+
+  def heapsort
+    heap_sort(self.dup)
   end
 
-  def heap_sort!
-    replace(heap_sort)
+  def heapsort!
+    replace(heapsort)
   end
 end
+
+arr = [3,4,5,2,8,1]
+p arr.heapsort
+
+p arr

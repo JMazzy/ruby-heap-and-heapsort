@@ -38,10 +38,4 @@ describe "MaxHeap" do
       expect(heap.item_at_index(0)).to eq(7)
     end
   end
-
-  describe "#heapsort" do
-    it "should return the array sorted" do
-      expect(heap.heap_sort).to eq([10,9,8,7,6,5,4,3,2,1,0])
-    end
-  end
 end
